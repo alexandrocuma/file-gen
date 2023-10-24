@@ -1,0 +1,68 @@
+import { createTRPCRouter, protectedProcedure } from "@merc/server/api/trpc";
+import { z } from "zod";
+
+export const {{ .Model }}Router = createTRPCRouter({
+  getAll: protectedProcedure.query(({ ctx }) => {
+    return ctx.prisma.{{ .Model }}.findMany({
+      include: {
+        _count: true,
+      },
+    });
+  }),
+
+  get: protectedProcedure
+    .input(
+      z.object({
+        {{ .Model }}Id: z.string(),
+      }),
+    )
+    .query(({ ctx, input }) => {
+      return ctx.prisma.{{ .Model }}.findUnique({
+        where: {
+          id: input.{{ .Model }}Id,
+        },
+      });
+    }),
+
+  create: protectedProcedure
+    .input(
+      z.object({ {{ range .Fields }}
+			  {{ .Name }}: z{{if eq .Type "string" }}.string(){{end}}{{if eq .Type "number" }}.number(){{end}}{{ if .Optional }}.nullable().optional(){{end}},{{end}}
+      }),
+    )
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.{{ .Model }}.create({
+        data: { {{ range .Fields }}
+			    {{ .Name }}: input.{{ .Name }},{{end}}
+        },
+      });
+    }),
+
+  update: protectedProcedure
+    .input(
+      z.object({
+        {{ .Model }}Id: z.string(), {{ range .Fields }}
+			  {{ .Name }}: z{{if eq .Type "string" }}.string(){{end}}{{if eq .Type "number" }}.number(){{end}}.nullable(),{{end}}
+      }),
+    )
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.{{ .Model }}.update({
+        where: {
+          id: input.{{ .Model }}Id, {{ range .Fields }}
+			    {{ .Name }}: input.{{ .Name }},{{end}}
+        },
+      });
+    }),
+
+  remove: protectedProcedure
+    .input(
+      z.object({
+        {{ .Model }}Id: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      return ctx.prisma.{{ .Model }}.delete({
+        where: { id: input.{{ .Model }}Id }
+      });      
+    })
+});

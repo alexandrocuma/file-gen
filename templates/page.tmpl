@@ -1,0 +1,13 @@
+export function Page() {
+	const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({ resolver });
+	const onSubmit = handleSubmit((data) => console.log(data));
+
+	return (
+		<form onSubmit={onSubmit}>{{ range .Fields }}
+			{{if eq .Type "string" }}<input { ...register("{{ .Name }}") } placeholder="Bill" />
+			{errors?.{{ .Name }} && <p>{errors.{{ .Name }}.message}</p>}{{end}}
+      {{if eq .Type "number" }}<input { ...register("{{ .Name }}") } type="number"placeholder="Bill" />
+			{errors?.{{ .Name }} && <p>{errors.{{ .Name }}.message}</p>}{{end}}{{end}}
+		</form>
+	)
+}

@@ -1,0 +1,6 @@
+model Workspace {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  legal_name String
+  name       String
+  size          Int?
+}
