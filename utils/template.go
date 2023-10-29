@@ -18,5 +18,5 @@ func ReadSchema(filePath string) *os.File {
 }
 
 func ReadTemplate(filePath string) *template.Template {
-	return template.Must(template.ParseFiles(filePath))
+	return template.Must(template.ParseFiles(filePath, "./templates/mui/input.tmpl"))
 }

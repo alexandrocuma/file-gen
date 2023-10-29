@@ -1,0 +1,11 @@
+<Grid xs={12}>
+  <FormControl fullWidth error={!!errors.{{ .Name }}?.message}>
+    <InputLabel htmlFor="{{ .Name }}">{{ .Name }}</InputLabel>
+    <Input {{if eq .Type "number" }}
+      type="number"{{end}}
+      id="height"
+      aria-describedby="{{ .Name }}"
+      {...register("{{ .Name }}"{{if eq .Type "number" }}, { valueAsNumber: true } {{end}} )}
+    />
+  </FormControl>
+</Grid>

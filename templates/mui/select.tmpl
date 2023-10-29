@@ -1,0 +1,15 @@
+<Grid xs={4}>
+  <FormControl fullWidth error={!!errors.{{ .Name }}?.message}>
+    <InputLabel htmlFor="{{ .Name }}">{{ .Name }}</InputLabel>
+    <Select
+      id="{{ .Name }}"
+      defaultValue={getValues("{{ .Name }}")}
+      variant="standard"
+      aria-describedby="{{ .Name }}"
+      {...register("{{ .Name }}")}
+    >
+      <MenuItem value={Gender.FEMALE}>Femenino</MenuItem>
+      <MenuItem value={Gender.MALE}>Masculino</MenuItem>
+    </Select>
+  </FormControl>
+</Grid>

@@ -27,6 +27,7 @@ func CreateSchemaFields(schema *os.File) struct {
 	for fileScanner.Scan() {
 		line := strings.Fields(fileScanner.Text())
 		if line[0] == "model" && os.Args[1] == line[1] {
+			fmt.Println(line)
 			isModel = true
 			continue
 		}

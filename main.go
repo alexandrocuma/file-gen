@@ -12,10 +12,10 @@ func main() {
 
 	schema := utils.ReadSchema("schema.prisma")
 
-	file := utils.CreateFile("./projects/page.tsx")
+	file := utils.CreateFile(fmt.Sprintf("./projects/%sForm.component.tsx", strings.ToLower(os.Args[1])))
 	router := utils.CreateFile(fmt.Sprintf("./projects/%s.ts", strings.ToLower(os.Args[1])))
 
-	pageTemplate := utils.ReadTemplate("./templates/page.tmpl")
+	pageTemplate := utils.ReadTemplate("./templates/form.tmpl")
 	routerTemplate := utils.ReadTemplate("./templates/router.tmpl")
 
 	data := utils.CreateSchemaFields(schema)
