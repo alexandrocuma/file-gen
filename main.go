@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	fmt.Println("Running project creator")
+	fmt.Println("\033[0;35mRunning project creator...\033[0m")
 
 	schema := utils.ReadSchema("schema.prisma")
 

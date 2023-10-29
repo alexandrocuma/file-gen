@@ -4,3 +4,19 @@ model Workspace {
   name       String
   size          Int?
 }
+
+enum Role {
+  ADMIN
+  GUEST
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+model User {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  role Role
+}

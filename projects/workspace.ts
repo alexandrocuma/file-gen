@@ -27,17 +27,11 @@ export const workspaceRouter = createTRPCRouter({
   create: protectedProcedure
     .input(
       z.object({ 
-			  legal_name: z.string(),
-			  name: z.string(),
-			  size: z.number().nullable().optional(),
       }),
     )
     .mutation(({ ctx, input }) => {
       return ctx.prisma.workspace.create({
         data: { 
-			    legal_name: input.legal_name,
-			    name: input.name,
-			    size: input.size,
         },
       });
     }),
@@ -46,18 +40,12 @@ export const workspaceRouter = createTRPCRouter({
     .input(
       z.object({
         workspaceId: z.string(), 
-			  legal_name: z.string().nullable(),
-			  name: z.string().nullable(),
-			  size: z.number().nullable(),
       }),
     )
     .mutation(({ ctx, input }) => {
       return ctx.prisma.workspace.update({
         where: {
           id: input.workspaceId, 
-			    legal_name: input.legal_name,
-			    name: input.name,
-			    size: input.size,
         },
       });
     }),
